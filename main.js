@@ -5,6 +5,10 @@ var size = document.getElementById('sld');
 var clear = document.getElementById('clr');
 var openf = document.getElementById('openf');
 
+var chWidth = document.getElementById('width');
+var chHeight = document.getElementById('height');
+var chSize = document.getElementById('chSize');
+
 var pi = Math.PI;
 
 document.getElementById('col').oninput = function(){
@@ -63,22 +67,29 @@ c.onmousedown = function(){
     }
 }
 
-openf.addEventListener('change', (e)=>{
-    //console.log('agaga');
-    if (openf.files == null) return
-    var file = openf.files[0];
-    //console.log(file.name);
-
-    var img = new Image();
-    img.src = URL.createObjectURL(file);
-    img.onload = function(){
-        //console.log(img.width, img.height);
-        ctx.fillStyle = color
-        ctx.fillRect(0, 0, 600, 450);
-        ctx.drawImage(img, 0, 0, c.width, c.height);
-        openf.files = null
+openf.onclick = function(){
+    this.value = '';
+    openf.onchange = function(){
+        //console.log('agaga');
+        if (openf.files == null) return
+        var file = openf.files[0];
+        //console.log(file.name);
+    
+        var img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function(){
+            //console.log(img.width, img.height);
+            ctx.fillStyle = color
+            ctx.fillRect(0, 0, 600, 450);
+            ctx.drawImage(img, 0, 0, c.width, c.height);
+        }
     }
-})
+}
+
+chSize.onclick = function(){
+    c.width = width.value
+    c.height = height.value
+}
 
 /*ctx.beginPath();
 ctx.strokeStyle = '#000000';
